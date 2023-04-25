@@ -1,4 +1,4 @@
-package web;
+package Controller;
 
 import Dao.*;
 import javax.persistence.EntityManagerFactory;

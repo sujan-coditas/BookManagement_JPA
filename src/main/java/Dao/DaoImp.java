@@ -43,8 +43,11 @@ public class DaoImp implements Dao{
         String bookName=bf.readLine();
         System.out.println("Enter Book Price");
         int bookPrice= Integer.parseInt(bf.readLine());
-        System.out.println("Enter published date");
+
+
+        System.out.println("Enter published date (yyyy-mm-dd )");
         Date publishedDate= Date.valueOf(bf.readLine());
+
         System.out.println("Enter publisher Name");
         String publisherName=bf.readLine();
 
@@ -81,18 +84,22 @@ public class DaoImp implements Dao{
         transaction.begin();
         System.out.println("Enter Book ID");
         int bookId = Integer.parseInt(bf.readLine());
-        System.out.println("Enter Book Price");
-        int bookPrice = Integer.parseInt(bf.readLine());
 
         Books books = entityManager.find(Books.class, bookId);
         //update price
-        books.setBookPrice(bookPrice);
-        //merge data
-        entityManager.merge(books);
+        if(books== null){
+            System.out.println("book not found");
+        }
+        else {
+            System.out.println("Enter Book Price");
+            int bookPrice = Integer.parseInt(bf.readLine());
+            books.setBookPrice(bookPrice);
+            //merge data
+            entityManager.merge(books);
 
-        transaction.commit();
-        entityManager.close();
-
+            transaction.commit();
+            entityManager.close();
+        }
     }
 
     public void delete() throws IOException {
